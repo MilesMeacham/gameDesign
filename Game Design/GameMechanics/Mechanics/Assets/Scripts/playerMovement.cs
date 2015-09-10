@@ -4,13 +4,19 @@ using System.Collections;
 public class playerMovement : MonoBehaviour {
 
 	public float moveVelocity = 7f;
+	public float walkMoveVelocity = 7f;
+	public float runMoveVelocity = 10f;
 	public float jumpForce = 5f;
 
 	public bool grounded;
+	public bool ceilinged;
 	public bool doubleJumped;
 	public bool crouched = false;
 
 	public Transform lineGround;
+	public Transform lineCeiling;
+
+	public Vector2 currentCheckpoint;
 
 	private Animator anim;
 
@@ -22,15 +28,17 @@ public class playerMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		GroundCheck ();
+		RayCasting ();
 		Movement ();
 	
 	}
 
-	void GroundCheck () {
+	void RayCasting () {
+		Debug.DrawLine (this.transform.position, lineCeiling.position, Color.green);
 		Debug.DrawLine (this.transform.position, lineGround.position, Color.green);
 
 		grounded = Physics2D.Linecast (this.transform.position, lineGround.position, 1 << LayerMask.NameToLayer ("Ground"));
+		ceilinged = Physics2D.Linecast (this.transform.position, lineCeiling.position, 1 << LayerMask.NameToLayer ("Ground"));
 
 		if (grounded)
 			doubleJumped = false;
@@ -40,6 +48,15 @@ public class playerMovement : MonoBehaviour {
 	
 
 	void Movement () {
+
+
+
+		if(Input.GetKey (KeyCode.LeftShift)){
+			moveVelocity = runMoveVelocity;
+		} else {
+			moveVelocity = walkMoveVelocity;
+		}
+
 
 		//Turn player Sprite the direction he is moving
 		//Leave him facing the way he last was traveling
@@ -79,7 +96,11 @@ public class playerMovement : MonoBehaviour {
 			crouched = true;
 		    anim.SetBool("crouched", crouched);
 		}
-		if (Input.GetKeyUp (KeyCode.S)) {
+		if (Input.GetKeyUp (KeyCode.S) && !ceilinged) {
+			crouched = false;
+			anim.SetBool("crouched", crouched);
+		}
+		if (!Input.GetKey (KeyCode.S) && !ceilinged) {
 			crouched = false;
 			anim.SetBool("crouched", crouched);
 		}
@@ -87,6 +108,18 @@ public class playerMovement : MonoBehaviour {
 
 		
 		
+	}
+
+	void OnTriggerEnter2D(Collider2D col)
+	{
+		if (col.name == "DeathZone") {
+			GetComponent<Renderer> ().enabled = false;
+			//GetComponent<GameObject> ().transform.position = currentCheckpoint.transform.position;
+		} 
+
+		if (col.name == "Checkpoint")
+			currentCheckpoint = new Vector2(col.transform.position.x, col.transform.position.y);
+
 	}
 
 
