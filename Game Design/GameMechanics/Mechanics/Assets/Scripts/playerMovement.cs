@@ -158,6 +158,7 @@ public class playerMovement : MonoBehaviour {
 		GetComponent<Rigidbody2D> ().gravityScale = 0;
 		GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
 
+
 		yield return new WaitForSeconds(2);
 
 		GetComponent<Rigidbody2D> ().transform.position = new Vector2 (currentCheckpoint.x, currentCheckpoint.y);
