@@ -1,10 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/threeDMovement.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\threeDMovement.cs">
     <Files>
-      <File FileName="Assets/threeDMovement.cs" Line="46" Column="22" />
-      <File FileName="../../GameMechanics/Mechanics/Assets/Scripts/playerMovement.cs" Line="1" Column="1" />
-      <File FileName="../../../../../../2015 Spring/Scripting/Gavin is Lonely/Assets/Scripts/Movement.cs" Line="1" Column="1" />
+      <File FileName="Assets\threeDMovement.cs" Line="43" Column="4" />
+      <File FileName="Assets\cameraFollowIsometric.cs" Line="12" Column="28" />
+      <File FileName="..\..\..\..\..\2015 Spring\Scripting\Gavin is Lonely\Assets\Scripts\Movement.cs" Line="265" Column="1" />
+      <File FileName="..\..\GameMechanics\Mechanics\Assets\Scripts\playerMovement.cs" Line="117" Column="3" />
+      <File FileName="..\..\..\..\..\2015 Spring\Scripting\Gavin is Lonely\Assets\Scripts\LevelManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\obstacleRotate.cs" Line="8" Column="25" />
+      <File FileName="..\..\..\..\..\2015 Spring\Scripting\Gavin is Lonely\Assets\Scripts\MovingPlatformUpDown.cs" Line="8" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

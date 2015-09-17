@@ -3,80 +3,100 @@ using System.Collections;
 
 public class threeDMovement : MonoBehaviour {
 
-	public float moveVelocity = 7f;
-	public float walkMoveVelocity = 7f;
-	public float runMoveVelocity = 10f;
-	public float jumpForce = 5f;
+	public float moveVelocity = 5f;
+	public float walkMoveVelocity = 5f;
+	public float runMoveVelocity = 7f;
+	public float jumpForce = 7f;
+	public float rotateSpeed = 5f;
 
 	public bool doubleJumped;
-
 	public bool grounded;
-	public LayerMask whatIsGround;
+	public bool currentlyJumping;
 
-	public GameObject startingSpawnPoint;
-	public GameObject throwingKnife;
+	public Vector3 spawnPoint;
+
+	
+
+	Rigidbody player;
 	
 	// Use this for initialization
 	void Start () {
-		//currentCheckpoint = new Vector2 (startingSpawnPoint.transform.position.x, startingSpawnPoint.transform.position.y);
+		player = GetComponent<Rigidbody> ();
+		spawnPoint = new Vector3 (player.position.x, player.position.y, player.position.z);
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
-		Movement ();
+		//jump
+		if(Input.GetKeyDown (KeyCode.Space) && grounded){
+			player.velocity = new Vector3 (player.velocity.x, jumpForce, player.velocity.z);
+			doubleJumped = false;
+			currentlyJumping = true;
+			grounded = false;
+		}
+		if (Input.GetKeyUp (KeyCode.Space) && !grounded)
+			currentlyJumping = false;
+		
+		//double Jump
+		if (Input.GetKey (KeyCode.Space) && !doubleJumped && !grounded && !currentlyJumping) {
+			player.velocity = new Vector3 (player.velocity.x, jumpForce, player.velocity.z);
+			doubleJumped = true;
+		}
 	}
 
 	void FixedUpdate () {
-		//grounded = Physics.OverlapSphere
+		Movement ();
 	}
 
 	
 	void Movement () {
 		
-		
-		
+
+		//run
 		if(Input.GetKey (KeyCode.LeftShift)){
 			moveVelocity = runMoveVelocity;
 		} else {
 			moveVelocity = walkMoveVelocity;
 		}
 
-		
-		//Move player on input and stop him when user lets go of key
-		if(Input.GetKeyDown (KeyCode.D)) {
-			//GetComponent<Rigidbody>().transform.localRotation = new Vector3 ((GetComponent<Rigidbody>().transform.localRotation.x + 90), GetComponent<Rigidbody>().transform.localRotation.y, GetComponent<Rigidbody>().transform.localRotation.z);  
-			//GetComponent<Rigidbody>().velocity = new Vector2(moveVelocity, GetComponent<Rigidbody>().velocity.y);
-			GetComponent<Rigidbody>().transform.localPosition = new Vector3 ((GetComponent<Rigidbody>().transform.localPosition.x + 1), GetComponent<Rigidbody>().transform.localPosition.y, GetComponent<Rigidbody>().transform.localPosition.z);
+		//Movement
+		if (Input.GetKey (KeyCode.W))
+			transform.Translate ((Vector3.forward) * moveVelocity * Time.deltaTime);
+		if(Input.GetKey (KeyCode.S))
+			transform.Translate ((Vector3.back) * moveVelocity * Time.deltaTime);
+		if (Input.GetKey (KeyCode.A))
+			player.transform.Rotate (Vector3.down * rotateSpeed);
+		if(Input.GetKey (KeyCode.D))
+			player.transform.Rotate (Vector3.up * rotateSpeed);
+
+
+ 
+	}
+
+	void OnTriggerEnter (Collider other) {
+		if (other.gameObject.layer == 8) {
+			grounded = true;
+			currentlyJumping = false;
+			doubleJumped = false;
 		}
 
-		if(Input.GetKeyUp (KeyCode.D))
-			GetComponent<Rigidbody>().velocity = new Vector2(0, GetComponent<Rigidbody>().velocity.y);
-		
-		if(Input.GetKey (KeyCode.A))
-			GetComponent<Rigidbody>().velocity = new Vector2(-moveVelocity, GetComponent<Rigidbody>().velocity.y);
-		if(Input.GetKeyUp (KeyCode.A))
-			GetComponent<Rigidbody>().velocity = new Vector2(0, GetComponent<Rigidbody>().velocity.y);
+		if (other.gameObject.layer == 9)
+			StartCoroutine ("Respawn");
+	}
 
-		if(Input.GetKey (KeyCode.W))
-			GetComponent<Rigidbody>().velocity = new Vector3(GetComponent<Rigidbody>().velocity.y, GetComponent<Rigidbody>().velocity.y, moveVelocity);
-		if(Input.GetKeyUp (KeyCode.W))
-			GetComponent<Rigidbody>().velocity = new Vector3(GetComponent<Rigidbody>().velocity.y, GetComponent<Rigidbody>().velocity.y, 0);
+	public IEnumerator Respawn () {
 
-		if(Input.GetKey (KeyCode.S))
-			GetComponent<Rigidbody>().velocity = new Vector3(GetComponent<Rigidbody>().velocity.y, GetComponent<Rigidbody>().velocity.y, -moveVelocity);
-		if(Input.GetKeyUp (KeyCode.S))
-			GetComponent<Rigidbody>().velocity = new Vector3(GetComponent<Rigidbody>().velocity.y, GetComponent<Rigidbody>().velocity.y, 0);
-		
-		
-		//Jump
-		//if ((Input.GetKeyDown (KeyCode.Space) && groundedLeft) || (Input.GetKeyDown (KeyCode.Space) && groundedRight))
-		//	GetComponent<Rigidbody2D> ().velocity = new Vector2 (GetComponent<Rigidbody2D> ().velocity.x, jumpForce);
-		
-		//Double Jump
-		//if (Input.GetKeyDown (KeyCode.Space) && !doubleJumped && !groundedLeft && !groundedRight) {
-		//	GetComponent<Rigidbody2D> ().velocity = new Vector2 (GetComponent<Rigidbody2D> ().velocity.x, jumpForce);
-		//	doubleJumped = true;
-		//}
+		GetComponent<Renderer> ().enabled = false;
+		player.velocity = Vector3.zero;
+		player.useGravity = false;
+		FindObjectOfType<threeDMovement> ().enabled = false;
+
+		yield return new WaitForSeconds (2);
+
+		player.position = spawnPoint;
+		player.useGravity = true;
+		GetComponent<Renderer> ().enabled = true;
+		FindObjectOfType<threeDMovement> ().enabled = true;
+
 
 	}
 
