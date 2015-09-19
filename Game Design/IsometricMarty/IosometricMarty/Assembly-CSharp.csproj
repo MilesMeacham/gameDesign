@@ -45,9 +45,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\cameraFollowIsometric.cs" />
-     <Compile Include="Assets\obstacleRotate.cs" />
-     <Compile Include="Assets\threeDMovement.cs" />
+     <Compile Include="Assets\Scripts\cameraFollowIsometric.cs" />
+     <Compile Include="Assets\Scripts\gravityAttractor.cs" />
+     <Compile Include="Assets\Scripts\gravityBody.cs" />
+     <Compile Include="Assets\Scripts\obstacleRotate.cs" />
+     <Compile Include="Assets\Scripts\threeDMovement.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>Z:/Programs/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
