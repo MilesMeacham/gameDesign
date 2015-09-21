@@ -16,7 +16,7 @@ public class gravityAttractor : MonoBehaviour {
 
 
 		Quaternion targetRotation = Quaternion.FromToRotation (bodyUp, gravityUp) * body.rotation;
-		body.rotation = Quaternion.Slerp (body.rotation, targetRotation, 50 * Time.deltaTime);
+		body.rotation = Quaternion.Slerp (body.rotation, targetRotation, 5 * Time.deltaTime);
 	}
 
 

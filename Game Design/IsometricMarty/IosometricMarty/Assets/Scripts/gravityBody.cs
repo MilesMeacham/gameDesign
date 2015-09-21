@@ -9,6 +9,7 @@ public class gravityBody : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		attractor = FindObjectOfType<gravityAttractor> ();
 		GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeRotation;
 		GetComponent<Rigidbody> ().useGravity = false;
 		myTransform = transform;
@@ -18,4 +19,12 @@ public class gravityBody : MonoBehaviour {
 	void Update () {
 		attractor.Attract (myTransform);
 	}
+
+	public void ChangeGravity (Collider other) {
+		attractor = other.gameObject.GetComponent<gravityAttractor>();
+
+			
+
+	}
+
 }

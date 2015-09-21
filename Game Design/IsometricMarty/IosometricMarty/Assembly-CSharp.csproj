@@ -48,7 +48,9 @@
      <Compile Include="Assets\Scripts\cameraFollowIsometric.cs" />
      <Compile Include="Assets\Scripts\gravityAttractor.cs" />
      <Compile Include="Assets\Scripts\gravityBody.cs" />
+     <Compile Include="Assets\Scripts\levelManager.cs" />
      <Compile Include="Assets\Scripts\obstacleRotate.cs" />
+     <Compile Include="Assets\Scripts\springBounce.cs" />
      <Compile Include="Assets\Scripts\threeDMovement.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>Z:/Programs/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

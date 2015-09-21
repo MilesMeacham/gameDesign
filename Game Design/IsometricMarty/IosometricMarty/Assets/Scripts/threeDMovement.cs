@@ -8,12 +8,15 @@ public class threeDMovement : MonoBehaviour {
 	public float runMoveVelocity = 7f;
 	public float jumpForce = 7f;
 	public float rotateSpeed = 5f;
+	public float boostForce = 2000f;
 
 	public bool doubleJumped;
 	public bool grounded;
 	public bool currentlyJumping;
 
 	public Vector3 spawnPoint;
+
+	public gravityBody myGravityBody;
 
 	
 
@@ -23,10 +26,17 @@ public class threeDMovement : MonoBehaviour {
 	void Start () {
 		player = GetComponent<Rigidbody> ();
 		spawnPoint = new Vector3 (player.position.x, player.position.y, player.position.z);
+		myGravityBody = FindObjectOfType<gravityBody> ();
 	}
 
 	void Update () {
-		//jump
+
+		if(Input.GetKeyDown (KeyCode.Space) && grounded) {
+			player.AddForce(transform.up * jumpForce);
+		}
+
+
+/*		//jump
 		if(Input.GetKeyDown (KeyCode.Space) && grounded){
 			player.velocity = new Vector3 (player.velocity.x, jumpForce, player.velocity.z);
 			doubleJumped = false;
@@ -41,6 +51,7 @@ public class threeDMovement : MonoBehaviour {
 			player.velocity = new Vector3 (player.velocity.x, jumpForce, player.velocity.z);
 			doubleJumped = true;
 		}
+*/	
 	}
 
 	void FixedUpdate () {
@@ -81,6 +92,28 @@ public class threeDMovement : MonoBehaviour {
 
 		if (other.gameObject.layer == 9)
 			StartCoroutine ("Respawn");
+		
+		if (other.gameObject.layer == 10)
+			myGravityBody.ChangeGravity(other);
+
+		if (other.gameObject.layer == 11) 
+			StartCoroutine ("Boost");
+			
+
+
+	}
+
+	public IEnumerator Boost () {
+		FindObjectOfType<threeDMovement> ().enabled = false;
+	
+
+	//	yield return new WaitForSeconds (1);
+
+		player.AddForce(transform.up * boostForce);
+
+		yield return new WaitForSeconds (1);
+
+		FindObjectOfType<threeDMovement> ().enabled = true;
 	}
 
 	public IEnumerator Respawn () {

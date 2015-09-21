@@ -1,14 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\cameraFollowIsometric.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\threeDMovement.cs">
     <Files>
-      <File FileName="Assets\Scripts\gravityBody.cs" Line="11" Column="17" />
-      <File FileName="..\..\..\..\..\2015 Spring\Scripting\Gavin is Lonely\Assets\Scripts\Movement.cs" Line="1" Column="1" />
-      <File FileName="..\..\GameMechanics\Mechanics\Assets\Scripts\playerMovement.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\threeDMovement.cs" Line="112" Column="44" />
+      <File FileName="Assets\Scripts\gravityBody.cs" Line="24" Column="64" />
+      <File FileName="Assets\Scripts\levelManager.cs" Line="1" Column="1" />
       <File FileName="..\..\..\..\..\2015 Spring\Scripting\Gavin is Lonely\Assets\Scripts\LevelManager.cs" Line="1" Column="1" />
-      <File FileName="..\..\..\..\..\2015 Spring\Scripting\Gavin is Lonely\Assets\Scripts\MovingPlatformUpDown.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\gravityAttractor.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\cameraFollowIsometric.cs" Line="1" Column="1" />
+      <File FileName="..\..\..\..\..\2015 Spring\Scripting\Gavin is Lonely\Assets\Scripts\Movement.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\gravityAttractor.cs" Line="19" Column="69" />
+      <File FileName="Assets\Scripts\obstacleRotate.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\springBounce.cs" Line="14" Column="21" />
+      <File FileName="..\..\GameMechanics\Mechanics\Assets\Scripts\playerMovement.cs" Line="1" Column="1" />
+      <File FileName="..\..\GameMechanics\Mechanics\Assets\Scripts\checkpoint.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
